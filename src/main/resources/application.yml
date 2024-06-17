@@ -1,0 +1,37 @@
+spring:
+    application:
+        name: gatewayserver
+    config:
+        import: "optional:configserver:http://localhost:8071/"
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+    cloud:
+      gateway:
+        discovery:
+          locator:
+            enabled: true
+      refresh:
+          enabled: false
+
+info:
+    app:
+        name: gatewayserver
+        description: "Spring Boot 3 - Microservices: Gateway Server Application"
+        version: "1.0.0"
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+                # include: "refresh"
+                # include: "bus-refresh"
+    endpoint:
+      gateway:
+        enabled: true
+    info:
+        env:
+            enabled: true
