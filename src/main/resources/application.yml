@@ -36,3 +36,10 @@ management:
     info:
         env:
             enabled: true
+
+logging:
+    level:
+        com:
+            jovisco:
+                services:
+                    gatewayserver: debug
