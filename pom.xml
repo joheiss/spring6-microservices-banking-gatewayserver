@@ -42,6 +42,11 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -82,6 +87,12 @@
 					<to>
 						<image>joheiss/sb3-${project.artifactId}:v5.1</image>
 					</to>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>					
 				</configuration>
 			</plugin>
 		</plugins>
