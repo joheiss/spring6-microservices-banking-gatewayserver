@@ -1,8 +1,10 @@
-package com.jovisco.services.gatewayserver.filters;
+package com.jovisco.services.gatewayserver.config;
 
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.jovisco.services.gatewayserver.filters.FilterUtility;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +13,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
-public class ResponseTraceFilter {
+public class ResponseTraceFilterConfig {
 
     private final FilterUtility filterUtility;
 
