@@ -34,7 +34,7 @@ public class GatewayserverApplication {
 				)
 				.uri("lb://LOANS"))		
 			.route(p -> p
-				.path("/api/v1/banking/cards/**")
+				.path("/banking/api/v1/cards/**")
 				.filters(f ->f
 					.stripPrefix(1)
 					.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
