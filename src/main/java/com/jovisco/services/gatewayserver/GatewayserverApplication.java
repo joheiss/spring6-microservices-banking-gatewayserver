@@ -27,6 +27,14 @@ public class GatewayserverApplication {
 					)
 				.uri("lb://ACCOUNTS"))		
 			.route(p -> p
+				.path("/banking/api/v1/customers/**")
+				.filters(f ->f
+					.stripPrefix(1)
+					.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
+				)
+				.uri("lb://ACCOUNTS"))		
+
+			.route(p -> p
 				.path("/banking/api/v1/loans/**")
 				.filters(f ->f
 					.stripPrefix(1)
