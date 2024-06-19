@@ -40,6 +40,4 @@ management:
 logging:
     level:
         com:
-            jovisco:
-                services:
-                    gatewayserver: debug
+            jovisco: debug
