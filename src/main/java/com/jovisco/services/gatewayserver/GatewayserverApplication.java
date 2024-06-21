@@ -69,10 +69,10 @@ public class GatewayserverApplication {
 								.retry(retryConfig -> retryConfig
 										.setRetries(3)
 										.setMethods(HttpMethod.GET)
-										.setBackoff(Duration.ofMillis(100), Duration.ofMillis(1000), 2, true))
-								.requestRateLimiter(config -> config
-										.setRateLimiter(redisRateLimiter())
-										.setKeyResolver(userKeyResolver())))
+										.setBackoff(Duration.ofMillis(100), Duration.ofMillis(1000), 2, true)))
+								// .requestRateLimiter(config -> config
+								// 		.setRateLimiter(redisRateLimiter())
+								// 		.setKeyResolver(userKeyResolver())))
 						.uri("lb://LOANS"))
 				.route(p -> p
 						.path("/banking/api/v1/cards/**")
