@@ -32,12 +32,17 @@ public class GatewayserverApplication {
 	@Bean
 	public RouteLocator routeConfig(RouteLocatorBuilder routeLocatorBuilder) {
 
+		// Resilience4j order: retry, circuitbreaker, ratelimiter, timelimiter, bulkhead
 		return routeLocatorBuilder.routes()
 				.route(p -> p
 						.path("/banking/api/v1/accounts/**")
 						.filters(f -> f
 								.stripPrefix(1)
 								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
+								.retry(retryConfig -> retryConfig
+										.setRetries(3)
+										.setMethods(HttpMethod.GET)
+										.setBackoff(Duration.ofMillis(100), Duration.ofMillis(1000), 2, true))
 								.circuitBreaker(config -> config
 										.setName("accountsCircuitBreaker")
 										.setFallbackUri("forward:/contact-support"))

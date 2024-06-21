@@ -1,61 +1,66 @@
 spring:
-    application:
-        name: gatewayserver
-    config:
-        import: "optional:configserver:http://localhost:8071/"
-    rabbitmq:
-        host: localhost
-        port: 5672
-        username: guest
-        password: guest
-    cloud:
-      gateway:
-        discovery:
-          locator:
-            enabled: false
-            lowerCaseServiceId: true
-        httpclient:
-            connect-timeout: 1000
-            response-timeout: 2s
-      refresh:
+  application:
+    name: gatewayserver
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    gateway:
+      discovery:
+        locator:
           enabled: false
-    data:
-        redis:
-            connect-timeout: 2s
-            host: localhost
-            port: 6379
-            timeout: 1s
+          lowerCaseServiceId: true
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 2s
+    refresh:
+      enabled: false
+  data:
+    redis:
+      connect-timeout: 2s
+      host: localhost
+      port: 6379
+      timeout: 1s
 
 info:
-    app:
-        name: gatewayserver
-        description: "Spring Boot 3 - Microservices: Gateway Server Application"
-        version: "1.0.0"
+  app:
+    name: gatewayserver
+    description: "Spring Boot 3 - Microservices: Gateway Server Application"
+    version: "1.0.0"
 
 management:
-    endpoints:
-        web:
-            exposure:
-                include: "*"
-                # include: "refresh"
-                # include: "bus-refresh"
-    endpoint:
-      gateway:
-        enabled: true
-    info:
-        env:
-            enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        # include: "refresh"
+        # include: "bus-refresh"
+  endpoint:
+    gateway:
+      enabled: true
+  info:
+    env:
+      enabled: true
 
 resilience4j:
+  ratelimiter:
+    rateLimiterAspectOrder: 1
+  retry:
+    retryAspectOrder: 2
   circuitbreaker:
+    circuit-breaker-aspect-order: 3
     configs:
-        default:
-            slidingWindowSize: 10
-            permittedNumberOfCallsInHalfOpenState: 2
-            failureRateThreshold: 50
-            waitDurationInOpenState: 10000
-      
+      default:
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 2
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+
 logging:
-    level:
-        com:
-            jovisco: debug
+  level:
+    com:
+      jovisco: debug
