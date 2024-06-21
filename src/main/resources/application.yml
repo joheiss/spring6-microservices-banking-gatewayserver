@@ -45,6 +45,10 @@ management:
   info:
     env:
       enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
 
 resilience4j:
   ratelimiter:
@@ -64,3 +68,6 @@ logging:
   level:
     com:
       jovisco: debug
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+    
