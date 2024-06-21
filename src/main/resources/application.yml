@@ -19,6 +19,12 @@ spring:
             response-timeout: 2s
       refresh:
           enabled: false
+    data:
+        redis:
+            connect-timeout: 2s
+            host: localhost
+            port: 6379
+            timeout: 1s
 
 info:
     app:
