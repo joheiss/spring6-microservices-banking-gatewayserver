@@ -12,3 +12,6 @@ http:localhost:7080 (admin, pw see docker cmd above)
 
 ### get config from keycloak
 http://localhost:7080/realms/master/.well-known/openid-configuration
+
+### OAuth2 Playground - to play with grant_type=authorization_code for UI login
+oauth.com/playground
