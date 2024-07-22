@@ -10,15 +10,23 @@ spring:
     password: guest
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: false
-          lowerCaseServiceId: true
+      # discovery:
+      #   locator:
+      #     enabled: false
+      #     lowerCaseServiceId: true
       httpclient:
         connect-timeout: 1000
         response-timeout: 10s
     refresh:
       enabled: false
+    kubernetes:
+      discovery:
+        enabled: true
+        all-namespaces: true
+    discovery:
+      client:
+        health-indicator:
+          enabled: false
   data:
     redis:
       connect-timeout: 2s

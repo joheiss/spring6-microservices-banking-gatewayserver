@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory;
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder;
 import org.springframework.cloud.client.circuitbreaker.Customizer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -22,6 +23,7 @@ import reactor.core.publisher.Mono;
 import static org.springframework.cloud.gateway.support.RouteMetadataUtils.CONNECT_TIMEOUT_ATTR;
 import static org.springframework.cloud.gateway.support.RouteMetadataUtils.RESPONSE_TIMEOUT_ATTR;
 
+@EnableDiscoveryClient
 @SpringBootApplication
 public class GatewayserverApplication {
 
@@ -51,7 +53,7 @@ public class GatewayserverApplication {
 										.setKeyResolver(userKeyResolver())))
 						.metadata(RESPONSE_TIMEOUT_ATTR, 1000)
 						.metadata(CONNECT_TIMEOUT_ATTR, 2000)
-						.uri("lb://ACCOUNTS"))
+						.uri("http://accounts:8091"))
 				.route(p -> p
 						.path("/banking/api/v1/customers/**")
 						.filters(f -> f
@@ -65,7 +67,7 @@ public class GatewayserverApplication {
 										.setKeyResolver(userKeyResolver())))
 						.metadata(RESPONSE_TIMEOUT_ATTR, 1500)
 						.metadata(CONNECT_TIMEOUT_ATTR, 3000)
-						.uri("lb://ACCOUNTS"))
+						.uri("http://accounts:8091"))
 				.route(p -> p
 						.path("/banking/api/v1/loans/**")
 						.filters(f -> f
@@ -75,10 +77,10 @@ public class GatewayserverApplication {
 										.setRetries(3)
 										.setMethods(HttpMethod.GET)
 										.setBackoff(Duration.ofMillis(100), Duration.ofMillis(1000), 2, true)))
-								// .requestRateLimiter(config -> config
-								// 		.setRateLimiter(redisRateLimiter())
-								// 		.setKeyResolver(userKeyResolver())))
-						.uri("lb://LOANS"))
+						// .requestRateLimiter(config -> config
+						// .setRateLimiter(redisRateLimiter())
+						// .setKeyResolver(userKeyResolver())))
+						.uri("http://loans:8092"))
 				.route(p -> p
 						.path("/banking/api/v1/cards/**")
 						.filters(f -> f
@@ -91,7 +93,7 @@ public class GatewayserverApplication {
 								.requestRateLimiter(config -> config
 										.setRateLimiter(redisRateLimiter())
 										.setKeyResolver(userKeyResolver())))
-						.uri("lb://CARDS"))
+						.uri("http://cards:8093"))
 				.build();
 	}
 

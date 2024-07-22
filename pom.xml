@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.1</version>
+		<version>3.3.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jovisco.services</groupId>
@@ -42,9 +42,13 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-gateway</artifactId>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency> -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-kubernetes-discoveryclient</artifactId>
 		</dependency>
 		<dependency>
       <groupId>org.springframework.cloud</groupId>
@@ -116,7 +120,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>joheiss/sb3-${project.artifactId}:v7.1</image>
+						<image>joheiss/sb3-${project.artifactId}:v9</image>
 					</to>
 					<excludes>
 						<exclude>
